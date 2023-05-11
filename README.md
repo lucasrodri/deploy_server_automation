@@ -4,6 +4,42 @@ This project aims to simplify and automate the continuous integration and delive
 
 The purpose of the project is to enable Github Actions to send a secure, token-authenticated POST request to the aforementioned server. Once this request is received by the server, it is capable of performing the deployment process automatically, thus ensuring a more efficient and secure continuous delivery.
 
+## Example of service creation in systemd
+
+Create a file in folder `/etc/systemd/system/deploy.service` with the following content:
+
+```sh
+[Unit]
+Description=Deploy service
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 <path_script.py>
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Reload the daemon
+
+```sh
+sudo systemctl daemon-reload
+```
+
+Enable the service
+
+```sh
+sudo systemctl enable test.service
+```
+
+Start the service
+
+```sh
+sudo systemctl start test.service
+```
+
 ## Apache vhost example
 
 ```sh
