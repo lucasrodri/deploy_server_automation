@@ -62,6 +62,29 @@ token = secrets.token_hex(32)
 print(token)
 ```
 
+## Workflow example
+
+```sh
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send deploy request
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+               -H "Authorization: ${{ secrets.SECURE_TOKEN }}" \
+               -d '{"deploy": "test_deploy"}' \
+               ${{ secrets.SERVER_URL }}
+```
+
+
 ## Developer
 
 - Lucas Costa @lucasrodri
